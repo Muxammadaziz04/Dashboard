@@ -34,23 +34,11 @@ pageBtn.addEventListener('click', (event)=>{
 renderData(data)
 
 function renderData(arr){
+    ticketsBlock.innerHTML = ''
     arr = JSON.parse(localStorage.getItem('generalArr'))
 
-    if(arr.length < 8){
-        var counter2 = arr.length
-    } else {
-        counter2 = counter*8
-    }
-
-    if(counter2 > arr.length){
-        counter2 = arr.length
-    }
-
-    counterInfo.textContent = `${(counter-1)*8+1} - ${counter2} of ${arr.length}`;
-    if(arr.length == 0) counterInfo.textContent = '0'
-
-        arr = arr.slice((counter-1)*8, counter*8)
-        arr.forEach(elem => {
+    arr = arr.slice((counter-1)*8, counter*8)
+    arr.forEach(elem => {
         var cloneTemplate = document.importNode(template, true)
         
         let ticketImg = cloneTemplate.querySelector('#ticketImg')
@@ -80,4 +68,12 @@ function renderData(arr){
         
         ticketsBlock.appendChild(cloneTemplate)
     })
+
+    if(arr.length < 8) var counterInfo = arr.length
+    else counterInfo = counter*8
+
+    if(counterInfo > arr.length) counterInfo = arr.length
+
+    counterInfo.textContent = `${(counter-1)*8+1} - ${counterInfo} of ${arr.length}`;
+    if(arr.length == 0) counterInfo.textContent = '0'
 }
