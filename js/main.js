@@ -37,6 +37,14 @@ function renderData(arr){
     ticketsBlock.innerHTML = ''
     arr = JSON.parse(localStorage.getItem('generalArr'))
 
+    if(arr.length < 8) var pageNumber = arr.length
+    else pageNumber = counter*8
+    
+    if(pageNumber > arr.length) pageNumber = arr.length
+    
+    counterInfo.textContent = `${(counter-1)*8+1} - ${pageNumber} of ${arr.length}`;
+    if(arr.length == 0) counterInfo.textContent = '0'
+
     arr = arr.slice((counter-1)*8, counter*8)
     arr.forEach(elem => {
         var cloneTemplate = document.importNode(template, true)
@@ -69,11 +77,4 @@ function renderData(arr){
         ticketsBlock.appendChild(cloneTemplate)
     })
 
-    if(arr.length < 8) var counterInfo = arr.length
-    else counterInfo = counter*8
-
-    if(counterInfo > arr.length) counterInfo = arr.length
-
-    counterInfo.textContent = `${(counter-1)*8+1} - ${counterInfo} of ${arr.length}`;
-    if(arr.length == 0) counterInfo.textContent = '0'
 }
